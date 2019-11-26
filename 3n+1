@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+int qtd_n(int i, int n)
+{
+	if (n == 1)
+	{
+		return i;  
+	}
+	else
+	{
+		int div2 = n%2;
+		
+		if (div2 == 0)
+		{
+			n = n/2;
+			//printf("numero par %d\n", n);
+			i++;
+		}
+		else
+		{
+			n = (n*3) + 1;
+			//printf("3n+1 %d\n", n);
+			i++;
+		}
+		ler(i, n);		
+	}
+}
+
+int main()
+{
+	int inicio, final;
+	scanf("%d %d", &inicio, &final);
+	qtd_n(0, inicio);
+	return 0;
+}

@@ -1,0 +1,83 @@
+#include <stdio.h>
+
+
+	void imprimrir_array(int i, int n, int numero[])
+	{
+		if (i  n)
+		{
+			printf("[%d]", numero[i]);
+
+			imprimrir_array(i+1, n, numero);
+		}
+		else
+		{
+			printf("\n");
+			return;
+		}
+	}
+	void swap(int *x, int *y)
+	{
+		if (*x > *y)
+		{
+			int aux = *y;
+			*y = *x;
+			*x = aux;
+			return;
+		}
+		else
+		{
+			return;
+		}
+	}
+
+	void ordenar(int n, int numero[], int i)
+	{	
+		if (n == 1)
+		{
+			return;
+		}
+		else
+		{
+			if (i == n)
+			{
+				ordenar(n-1, numero, 1);
+				return;
+			}
+			else
+			{ 
+				swap(&numero[i], &numero[i-1]);
+
+				ordenar(n, numero, i+1);
+				return;
+			}
+		}
+	}
+
+	void ler(int n, int numero[], int i)
+	{
+		if (i < n)
+		{
+			scanf("%d", &numero[i]);
+
+			ler(n, numero, i+1);
+		}
+		else
+		{
+			return;
+		}
+	}
+	int main()
+	{
+		int n;
+		scanf("%d", &n);
+
+		int numero[n];
+
+		ler(n, numero, 0);
+
+		ordenar(n, numero, 1);
+
+		imprimrir_array(0, n, numero);
+		
+		return 0;
+	}

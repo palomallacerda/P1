@@ -1,0 +1,64 @@
+#include <stdio.h>
+
+void imprimir(long long int numero[], long long int n, long long int i)
+{
+	if (i < n)
+	{
+		printf("%lld\n", numero[i]);
+		imprimir(numero, n, i+1);
+	}
+}
+
+
+void swap(long long int *x, long long int *y)
+{
+	if (*x < *y)
+	{
+		long long int aux = *y;
+		*y = *x;
+		*x = aux;
+	}
+}
+
+void ordenar(long long int numero[], long long int n, long long int i)
+{
+	if (n == 1)
+	{
+		return;
+	}
+	else
+	{
+		if (i == n)
+		{
+			ordenar(numero, n-1, 1);
+		}
+		else
+		{
+			swap(&numero[i], &numero[i-1]);
+			ordenar(numero, n, i+1);
+		}
+	}
+}
+
+void ler(long long int numero[], long long int n, long long int i)
+{
+	if (i < n)
+	{
+		scanf("%lld", &numero[i]);
+		ler(numero, n, i+1);
+	}
+}
+
+int main()
+{
+	long long int n;
+	scanf("%lld", &n);
+
+	long long int numero[n];
+	ler(numero, n, 0);
+
+	ordenar(numero, n, 1);
+	imprimir(numero, n, 0);
+
+	return 0;
+}

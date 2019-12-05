@@ -1,64 +1,56 @@
 #include <stdio.h>
 
-void imprimir(long long int numero[], long long int n, long long int i)
+void bobble(int i, int array[]) /*fazendo a troca*/
 {
-	if (i < n)
+	if (i < 4 )
 	{
-		printf("%lld\n", numero[i]);
-		imprimir(numero, n, i+1);
+		if (array[i] > array[i+1])
+		{
+			int aux = array[i+1];
+			array[i+1] = array[i];
+			array[i] = aux;
+		}
+		bobble(i+1, array);
 	}
 }
-
-
-void swap(long long int *x, long long int *y)
+void ordenando(int i, int n, int array[]) /*ordenando ate o fim do array*/
 {
-	if (*x < *y)
-	{
-		long long int aux = *y;
-		*y = *x;
-		*x = aux;
-	}
-}
-
-void ordenar(long long int numero[], long long int n, long long int i)
-{
-	if (n == 1)
-	{
-		return;
-	}
+	if (i == n) return;
 	else
 	{
-		if (i == n)
-		{
-			ordenar(numero, n-1, 1);
-		}
-		else
-		{
-			swap(&numero[i], &numero[i-1]);
-			ordenar(numero, n, i+1);
-		}
+		bobble(i, array);
+		ordenando(i, n-1, array);
 	}
 }
 
-void ler(long long int numero[], long long int n, long long int i)
+void imprimir(int i, int array[5]) /*imprimindo array*/
 {
-	if (i < n)
+	if (i < 5)
 	{
-		scanf("%lld", &numero[i]);
-		ler(numero, n, i+1);
+		printf("%d\n", array[i]);
+		imprimir(i+1, array);
 	}
 }
 
+void ler(int i, int array[])/*recebendo*/
+{
+	if (i < 5)
+	{
+		scanf("%d", &array[i]);
+		ler(i+1, array);
+	}
+}
 int main()
 {
-	long long int n;
-	scanf("%lld", &n);
+	int array[5];
 
-	long long int numero[n];
-	ler(numero, n, 0);
+	ler(0, array);
+	
+	ordenando(0, 5, array);
 
-	ordenar(numero, n, 1);
-	imprimir(numero, n, 0);
+	//bobble(0, array);
+
+	imprimir(0, array);
 
 	return 0;
 }

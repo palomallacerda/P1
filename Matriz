@@ -1,0 +1,32 @@
+#include <stdio.h>
+void ler_linha (int i, int j, int m, int matriz[][m]) /*para ler os valores da colunias*/
+{
+	printf("ler_linha: i=%d, j =%d\n", i, j);
+	if (j < m)
+	{
+		scanf("%d", &matriz[i][j]);
+		ler_linha(i, j+1, m, matriz);
+	}
+}
+void ler_matriz(int i, int j, int linhas, int colunas, int matriz[][colunas])
+{
+	printf("ler_matriz: i=%d, j =%d\n", i, j);
+	if (i < linhas)
+	{
+		ler_linha(i, j, colunas, matriz);
+		ler_matriz(i+1, j, linhas, colunas, matriz);
+	}
+	
+}
+
+
+int main()
+{
+	int linhas, colunas;
+	scanf("%d %d", &linhas, &colunas);
+
+	int matriz[linhas][colunas];
+
+	ler_matriz(0,0, linhas, colunas, matriz);
+	return 0;
+}

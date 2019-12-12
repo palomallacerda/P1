@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include <math.h>
+
+int multiplo_de_3(int i, int qtd)
+{
+	if (i <= qtd)
+	{
+		if ((i%3) == 0)
+		{
+			return i;
+		}
+		multiplo_de_3(i+1, qtd);
+	}
+}
+
+int numero_par(int i, int qtd)
+{
+	if (i <= qtd)
+	{
+		if ((i%2) == 0)
+		{
+			return i;
+		}
+		numero_par(++i, qtd);
+	}
+}
+
+int numero_impa(int i, int qtd)
+{
+	if (i <= qtd)
+	{
+		if ((i%2) != 0)
+		{
+			return i;
+		}
+		numero_impa(++i, qtd);
+	}
+}
+
+int calculo(int i, int qtd, int par, int impa, int multiplo)
+{
+	if (i <= qtd)
+	{
+		impa + ((pow(2, impa))/multiplo)
+	}
+}
+
+int main()
+{
+	int qtd;
+	scanf("%d", &qtd);
+
+	int multiplo = multiplo_de_3(1, qtd);
+	
+	int par = numero_par(1, qtd);
+	int impa = numero_impa(1, qtd);
+	
+	calculo(1, qtd, par, impa, multiplo);
+	return 0;
+}

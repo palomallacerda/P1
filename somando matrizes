@@ -1,48 +1,109 @@
 #include <stdio.h>
 
-/*void soma (int i, int j, int k, int p, int n, int matriz, int matriz2)
+void ler_colunas2(int i, int j, int n,  int matriz2[][n])
 {
-	if (i < n && k < n)
+	if (j < n)
 	{
-		
+		scanf("%d", &matriz2[i][j]);
+		ler_colunas2(i, ++j, n, matriz2);
 	}
-}*/
 
-void ler_colunas(int i, int j, int k, int p, int n,  int matriz[][n], int matriz2[][n])
+}
+
+void ler_matriz2(int i, int n,  int matriz2[][n])
+{
+	if (i < n)
+	{
+		ler_colunas2(i, 0, n, matriz2);
+		ler_matriz2(++i, n,  matriz2);
+	}
+}
+
+void ler_colunas(int i, int j, int n,  int matriz[][n])
 {
 	if (j < n)
 	{
 		scanf("%d", &matriz[i][j]);
-		ler_colunas(i, ++j, k, p, n, matriz, matriz2);
+		ler_colunas(i, ++j, n, matriz);
 	}
-	else
-	{
-		if (p < n)
-		{
-			scanf("%d", &matriz2[k][p]);
-			ler_colunas(i, j, k, ++p, n, matriz, matriz2);
-		}
-	}
+
 }
 
-void ler_matriz(int i, int n, int matriz[][n], int matriz2[][n])
+void ler_matriz(int i, int n, int matriz[][n])
 {
 	if (i < n)
 	{
-		ler_colunas(i, 0, i, 0, n, matriz, matriz2);
-		ler_matriz(++i, n, matriz, matriz2);
+		ler_colunas(i, 0, n, matriz);
+		ler_matriz(++i, n, matriz);
 	}
 }
+
+void imprimir_linha(int i, int j, int n, int soma[][n])
+{
+    if (j < n)
+    {
+        printf("%d\n", soma[i][j]);
+        imprimir_linha(i, ++j, n, soma);
+    }
+ 
+}
+void imprimir_matriz(int i, int n, int soma[][n])
+{
+    if (i < n)
+    {
+        imprimir_linha(i, 0, n, soma);
+        imprimir_matriz(++i, n, soma);
+    }
+}
+
+void adicao_linhas(int i, int j, int n, int matriz[][n], int matriz2[][n], int soma[][n])
+{
+	 if (i < n)
+        {
+            soma[i][j] = matriz[i][j]+matriz2[i][j];
+           	printf("matriz = %d  matriz2 = %d ", matriz[i][j], matriz2[i][j]);
+        	printf("soma = %d\n ", soma[i][j]);
+        
+            adicao_linhas(++i, j, n, matriz, matriz2, soma);
+        }
+        else
+        {        	
+          //imprimir_matriz(0, n, soma);
+        	return;
+        }
+} 
+void adicao(int i, int j, int n, int matriz[][n], int matriz2[][n], int soma[][n])
+{
+    if (j < n)
+    {
+        soma[i][j] = matriz[i][j]+matriz2[i][j];
+        printf("matriz = %d  matriz2 = %d ", matriz[i][j], matriz2[i][j]);
+        printf("soma = %d\n ", soma[i][j]);
+        
+        adicao(i, ++j, n, matriz, matriz2, soma);
+    }
+    else
+    {
+      adicao_linhas(i, j, n, matriz, matriz2, soma);
+    }
+}
+
 
 int main()
 {
 	int n;
-	scanf("%d", &n);
-
-	int matriz[n][n];
-	int matriz2[n][n];
-
-	ler_matriz(0, n, matriz, matriz2);
-
-	return 0;
+    scanf("%d", &n);
+ 
+    int matriz[n][n];
+    int matriz2[n][n];
+   
+    int soma[n][n];
+ 
+    ler_matriz(0, n, matriz);
+   
+    ler_matriz2(0, n, matriz2);
+ 
+ 	adicao(0, 0,  n, matriz, matriz2, soma);
+   
+   	return 0;
 }

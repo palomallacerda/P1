@@ -1,60 +1,52 @@
 #include <stdio.h>
 
-void ler_linha (int i, int j, int m, int matriz[][m]) /*para ler os valores da colunias*/
+void ler_colunas(int i, int j, int n, int m, int matriz[][m])
 {
-	//printf("ler_linha: i=%d, j =%d\n", i, j);
 	if (j < m)
 	{
 		scanf("%d", &matriz[i][j]);
-		ler_linha(i, j+1, m, matriz);
-	}
-}
-void imprimir_linha(int i, int j, int m, int matriz[][m])
-{
-	if (j < m)
-	{
-		if (j+1 == m) /*lendo as linhas*/
-		{
-			printf("%d\n", matriz[i][j]);
-		}
-		else
-		{
-			printf("%d ", matriz[i][j]);	
-		}
-		imprimir_linha(i, j+1, m, matriz);
+		ler_colunas(i, ++j, n, m, matriz);
 	}
 }
 
 void ler_matriz(int i, int n, int m, int matriz[][m])
 {
-	//printf("ler_matriz: i=%d, j =%d\n", i, j);
 	if (i < n)
 	{
-		ler_linha(i, 0, m, matriz);
+		ler_colunas(i, 0, n, m, matriz);
 		ler_matriz(++i, n, m, matriz);
 	}
-	
+}
+void imprimir_colunas(int i, int j, int n, int m, int matriz[][m])
+{
+	if (j < m)
+	{
+		printf("%d ", matriz[i][j]);
+		imprimir_colunas(i, ++j, n, m, matriz);
+	}
+	else
+	{
+		printf("\n");
+	}
 }
 void imprimir_matriz(int i, int n, int m, int matriz[][m])
 {
 	if (i < n)
 	{
-		imprimir_linha(i, 0, m, matriz);
+		imprimir_colunas(i, 0, n, m, matriz);
 		imprimir_matriz(++i, n, m, matriz);
 	}
 }
-/* i == linhas e j == colunas*/
-
 int main()
 {
 	int n, m;
-	scanf("%d %d", &n, &m);
+	scanf("%d%d", &n, &m);
 
 	int matriz[n][m];
 
 	ler_matriz(0, n, m, matriz);
 
 	imprimir_matriz(0, n, m, matriz);
-
+	
 	return 0;
 }

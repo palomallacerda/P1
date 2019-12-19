@@ -1,10 +1,9 @@
 #include <stdio.h>
 
-void imprimir_matriz(int i, int j, int n, int m, int matriz[][n])
+void imprimir_matriz(int i, int j, int n, int m, int matriz[][m])
 {
 	if (j < n)
 	{
-		//printf("i: %d j:%d\n", i, j);
 		printf("%d ", matriz[j][i]);
 		imprimir_matriz(i, ++j, n, m, matriz);
 	}
@@ -13,13 +12,13 @@ void imprimir_matriz(int i, int j, int n, int m, int matriz[][n])
 		printf("|\n");
 	}
 }
-void imprimir(int i, int j, int n, int m, int matriz[][n])
+void imprimir(int i, int j, int n, int m, int matriz[][m])
 {
 	if (i < m)
 	{
 		//printf("i: %d j: %d\n", i, j);
 		printf("| ");
-		imprimir_matriz(i, j, n, m, matriz);
+		imprimir_matriz(i, 0, n, m, matriz);
 		imprimir(++i, j, n, m, matriz);
 	}
 }
@@ -29,7 +28,8 @@ void ler_colunas(int i, int j, int n, int m, int matriz[][m])
 	if (j < m)
 	{
 		scanf("%d", &matriz[i][j]);
-		ler_colunas(i, ++j, m, n, matriz);
+		//printf("i: %d j:%d\n", i, j);
+		ler_colunas(i, ++j, n, m, matriz);
 	}
 }
 

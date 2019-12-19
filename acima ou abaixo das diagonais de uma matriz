@@ -1,0 +1,36 @@
+#include <stdio.h>
+
+void ler_colunas(int i, int j, int n,  int matriz[][n]) /*/ler matriz*/
+{
+	if (j < n)
+	{
+		scanf("%d", &matriz[i][j]);
+		ler_colunas(i, ++j, n, matriz);
+	}
+
+}
+
+void ler_matriz(int i, int n, int matriz[][n]) /*ler matriz*/
+{
+	if (i < n)
+	{
+		ler_colunas(i, 0, n, matriz);
+		ler_matriz(++i, n, matriz);
+	}
+}
+
+int main()
+{
+	int n, limiar;
+	char posicao[15];
+	scanf("%s", &posicao);
+    scanf("%d %d", &limiar,&n);
+ 
+    int matriz[n][n];
+ 
+    ler_matriz(0, n, matriz);
+   
+
+   
+   	return 0;
+}

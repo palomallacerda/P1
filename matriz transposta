@@ -1,0 +1,57 @@
+#include <stdio.h>
+
+void imprimir_matriz(int i, int j, int n, int m, int matriz[][n])
+{
+	if (j < n)
+	{
+		//printf("i: %d j:%d\n", i, j);
+		printf("%d ", matriz[j][i]);
+		imprimir_matriz(i, ++j, n, m, matriz);
+	}
+	else
+	{
+		printf("|\n");
+	}
+}
+void imprimir(int i, int j, int n, int m, int matriz[][n])
+{
+	if (i < m)
+	{
+		//printf("i: %d j: %d\n", i, j);
+		printf("| ");
+		imprimir_matriz(i, j, n, m, matriz);
+		imprimir(++i, j, n, m, matriz);
+	}
+}
+
+void ler_colunas(int i, int j, int n, int m, int matriz[][m])
+{
+	if (j < m)
+	{
+		scanf("%d", &matriz[i][j]);
+		ler_colunas(i, ++j, m, n, matriz);
+	}
+}
+
+void ler(int i, int j, int n, int m, int matriz[][m])
+{
+	if (i < n)
+	{
+		ler_colunas(i, j, n, m, matriz);
+		ler(++i, j, n, m, matriz);
+	}
+}
+
+int main()
+{
+	int n, m;
+	scanf("%d%d", &n, &m);
+
+	int matriz[n][m];
+
+	ler(0, 0, n, m, matriz);
+
+	imprimir(0, 0, n, m, matriz);
+
+	return 0;
+}

@@ -42,8 +42,12 @@ void imprimir_linha(int i, int j, int n, int soma[][n])
 {
     if (j < n)
     {
-        printf("%d\n", soma[i][j]);
+        printf("%d ", soma[i][j]);
         imprimir_linha(i, ++j, n, soma);
+    }
+    else
+    {
+    	printf("\n");
     }
  
 }
@@ -59,32 +63,41 @@ void imprimir_matriz(int i, int n, int soma[][n])
 void adicao_linhas(int i, int j, int n, int matriz[][n], int matriz2[][n], int soma[][n])
 {
 	 if (i < n)
+	 {
+		 if (j < n)
         {
             soma[i][j] = matriz[i][j]+matriz2[i][j];
-           	printf("matriz = %d  matriz2 = %d ", matriz[i][j], matriz2[i][j]);
+           	/*printf("matriz = %d  matriz2 = %d ", matriz[i][j], matriz2[i][j]);
         	printf("soma = %d\n ", soma[i][j]);
-        
-            adicao_linhas(++i, j, n, matriz, matriz2, soma);
+			printf("i: %d j: %d\n", i, j);*/        
+            adicao_linhas(i, ++j, n, matriz, matriz2, soma);
         }
         else
-        {        	
-          //imprimir_matriz(0, n, soma);
-        	return;
+        {
+        adicao_linhas(++i, 0, n, matriz, matriz2, soma);        	
         }
+	 }
+	 else
+	 {
+      	imprimir_matriz(0, n, soma);
+    	return;
+
+	 }
 } 
 void adicao(int i, int j, int n, int matriz[][n], int matriz2[][n], int soma[][n])
 {
+   
     if (j < n)
     {
         soma[i][j] = matriz[i][j]+matriz2[i][j];
-        printf("matriz = %d  matriz2 = %d ", matriz[i][j], matriz2[i][j]);
+        /*printf("matriz = %d  matriz2 = %d ", matriz[i][j], matriz2[i][j]);
         printf("soma = %d\n ", soma[i][j]);
-        
+        printf("is: %d js: %d\n", i, j);*/
         adicao(i, ++j, n, matriz, matriz2, soma);
     }
     else
     {
-      adicao_linhas(i, j, n, matriz, matriz2, soma);
+      adicao_linhas(++i, 0, n, matriz, matriz2, soma);
     }
 }
 

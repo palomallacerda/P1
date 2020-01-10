@@ -1,68 +1,135 @@
 #include <stdio.h>
 
-int verificando_colunas(int k, int i, int j, int matriz[][9], int qtd_colu, int coluna_certa)
+int verificando_colunas(int k, int i, int j, int matriz[][9], int qtd_colu1, int qtd_colu2, int qtd_colu3, int qtd_colu4, int qtd_colu5, int qtd_colu6, int qtd_colu7, int qtd_colu8, int qtd_colu9, int coluna_certa)
 {
 	if (j < 9)
 	{
 		if (i < 9)
 		{
-			if (matriz[i][j] == 1 || matriz[i][j] == 2 || matriz[i][j] == 3 || matriz[i][j] == 4 || matriz[i][j] == 5 || matriz[i][j] == 6 || matriz[i][j] == 7 || matriz[i][j] == 8 || matriz[i][j] == 9)
+			if (matriz[i][j] == 1)
 			{
-				printf("posicao: %d\n", matriz[i][j]);
-				qtd_colu += 1;
+				qtd_colu1 += 1;
 			}
-			verificando_colunas(k, ++i, j, matriz, qtd_colu, coluna_certa);
+			else if (matriz[i][j] == 2) 
+			{
+				qtd_colu2 += 1;
+			}
+			else if (matriz[i][j] == 3) 
+			{
+				qtd_colu3 += 1;
+			}
+			else if (matriz[i][j] == 4) 
+			{
+				qtd_colu4 += 1;
+			}
+			else if (matriz[i][j] == 5) 
+			{
+				qtd_colu5 += 1;
+			}
+			else if (matriz[i][j] == 6) 
+			{
+				qtd_colu6 += 1;
+			}
+			else if (matriz[i][j] == 7) 
+			{
+				qtd_colu7 += 1;
+			}
+			else if (matriz[i][j] == 8) 
+			{
+				qtd_colu8 += 1;
+			}
+			else if (matriz[i][j] == 9) 
+			{
+				qtd_colu9 += 1;
+			}
+			verificando_colunas(k, ++i, j, matriz, qtd_colu1, qtd_colu2, qtd_colu3, qtd_colu4, qtd_colu5, qtd_colu6, qtd_colu7, qtd_colu8, qtd_colu9, coluna_certa);
 		}
 		else
 		{
-			printf("qtd co ====%d\n", qtd_colu);
-		 	if (qtd_colu == 9) coluna_certa += 1;
-		 	  
-			verificando_colunas(k, 0, ++j, matriz, 0, coluna_certa);
+			//printf("qtd co ====%d\n", qtd_colu);
+		 	if (qtd_colu1 == 1 && qtd_colu2 == 1 && qtd_colu3 == 1 && qtd_colu4 == 1 && qtd_colu5 == 1 && qtd_colu6 == 1 && qtd_colu7 == 1 && qtd_colu8 == 1 && qtd_colu9 == 1 )
+		 	{
+		 		 coluna_certa += 1;
+		 	}
+			verificando_colunas(k, 0, ++j, matriz, 0, 0, 0, 0, 0, 0, 0, 0, 0, coluna_certa);
 		}
 	}
 	else
 	{
 		if (coluna_certa == 9)
 		{
-			printf("S\n");
+			printf("instancia %d\n SIM\n", k+1);
+			return 1;
 		}
 		else 
 		{
-			printf("Instacia %d\n Nao", k);
-			return 1;
+			printf("Instacia %d\n NAO\n", k+1);
 		}		
 	}
 }
 
-int verificando_linhas(int k, int i, int j, int matriz[][9], int qtd_colu, int qtd_linha, int linha_certa)
+int verificando_linhas(int k, int i, int j, int matriz[][9], int qtd_linha1, int qtd_linha2, int qtd_linha3, int qtd_linha4, int qtd_linha5, int qtd_linha6, int qtd_linha7, int qtd_linha8, int qtd_linha9,  int linha_certa)
 {
 	if (i < 9)
 	{
 		if (j < 9)
 		{
-			if (matriz[i][j] == 1 || matriz[i][j] == 2 || matriz[i][j] == 3 || matriz[i][j] == 4 || matriz[i][j] == 5 || matriz[i][j] == 6 || matriz[i][j] == 7 || matriz[i][j] == 8 || matriz[i][j] == 9)
+			if (matriz[i][j] == 1)
 			{
-				qtd_linha += 1;
+				qtd_linha1 += 1;
 			}
-			verificando_linhas(k, i, ++j, matriz, qtd_colu, qtd_linha, linha_certa);
+			else if (matriz[i][j] == 2) 
+			{
+				qtd_linha2 += 1;
+			}
+			else if (matriz[i][j] == 3) 
+			{
+				qtd_linha3 += 1;
+			}
+			else if (matriz[i][j] == 4) 
+			{
+				qtd_linha4 += 1;
+			}
+			else if (matriz[i][j] == 5) 
+			{
+				qtd_linha5 += 1;
+			}
+			else if (matriz[i][j] == 6) 
+			{
+				qtd_linha6 += 1;
+			}
+			else if (matriz[i][j] == 7) 
+			{
+				qtd_linha7 += 1;
+			}
+			else if (matriz[i][j] == 8) 
+			{
+				qtd_linha8 += 1;
+			}
+			else if (matriz[i][j] == 9) 
+			{
+				qtd_linha9 += 1;
+			}
+			verificando_linhas(k, i, ++j, matriz, qtd_linha1, qtd_linha2, qtd_linha3, qtd_linha4, qtd_linha5, qtd_linha6, qtd_linha7, qtd_linha8, qtd_linha9, linha_certa);
 		}
 		else 
 		{
-			if (qtd_linha == 9) linha_certa += 1;
-			verificando_linhas(k, ++i, 0, matriz, qtd_colu, 0, linha_certa);
+			if (qtd_linha1 == 1 && qtd_linha2 == 1 && qtd_linha3 == 1 && qtd_linha4 == 1 && qtd_linha5 == 1 && qtd_linha6 == 1 && qtd_linha7 == 1 && qtd_linha8 == 1 && qtd_linha9 == 1)
+		 	{
+		 		 linha_certa += 1;
+		 	}
+		 	verificando_linhas(k, ++i, 0, matriz, 0, 0, 0, 0, 0, 0, 0, 0, 0, linha_certa);
 		}
 	}
 	else
 	{
 		if (linha_certa == 9)
 		{
-			verificando_colunas(k, 0, 0, matriz, qtd_colu, 0);
+			verificando_colunas(k, 0, 0, matriz, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 		}
-		else 
+		else 	
 		{
-			printf("Instacia %d\n Nao", k);
-			return 1;
+			printf("Instacia %d\n NAO\n", k+1);
 		}
 		
 	}
@@ -104,7 +171,7 @@ void ler_matrizes(int n, int i, int j, int k, int matriz[][9])
 		else
 		{
 			//imprimir(0, 0, matriz);
-			 verificando_linhas(k, 0, 0, matriz, 0, 0, 0);
+			verificando_linhas(k, 0, 0, matriz, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 			ler_matrizes(n, 0, 0, ++k, matriz);
 		}
 	}

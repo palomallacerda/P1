@@ -1,0 +1,124 @@
+#include <stdio.h>
+
+int verificando_colunas(int k, int i, int j, int matriz[][9], int qtd_colu, int linha_certa)
+{
+	if (i < 9)
+	{
+		if (j < 9)
+		{
+			if (qtd_coluna == 9)
+			{
+				
+			}
+			verificando(k, i, ++j, matriz, qtd_colu, qtd_linha, linha_certa);
+		}
+		else 
+		{
+			if (matriz[i][j] == 1 || matriz[i][j] == 2 || matriz[i][j] == 3 || matriz[i][j] == 4 || matriz[i][j] == 5 || matriz[i][j] == 6 || matriz[i][j] == 7 || matriz[i][j] == 8 || matriz[i][j] == 9)
+			{
+				qtd_colu += 1;
+			}
+			if (qtd_linha == 9) linha_certa += 1;
+			verificando(k, ++i, 0, matriz, qtd_colu, 0, linha_certa);
+		}
+	}
+	else
+	{
+		if (linha_certa == 9)
+		{
+			verificando_colunas(k, 0, 0, matriz, qtd_colu, 0);
+		}
+		else 
+		{
+			printf("Instacia %d\n Nao", k);
+			return 1;
+		}
+		
+	}
+}
+
+int verificando_linhas(int k, int i, int j, int matriz[][9], int qtd_colu, int qtd_linha, int linha_certa)
+{
+	if (i < 9)
+	{
+		if (j < 9)
+		{
+			if (matriz[i][j] == 1 || matriz[i][j] == 2 || matriz[i][j] == 3 || matriz[i][j] == 4 || matriz[i][j] == 5 || matriz[i][j] == 6 || matriz[i][j] == 7 || matriz[i][j] == 8 || matriz[i][j] == 9)
+			{
+				qtd_linha += 1;
+			}
+			verificando(k, i, ++j, matriz, qtd_colu, qtd_linha, linha_certa);
+		}
+		else 
+		{
+			if (qtd_linha == 9) linha_certa += 1;
+			verificando(k, ++i, 0, matriz, qtd_colu, 0, linha_certa);
+		}
+	}
+	else
+	{
+		if (linha_certa == 9)
+		{
+			verificando_colunas(k, 0, 0, matriz, qtd_colu, 0);
+		}
+		else 
+		{
+			printf("Instacia %d\n Nao", k);
+			return 1;
+		}
+		
+	}
+}
+
+void imprimir(int i, int j, int matriz[][9])
+{
+	if (i < 9)
+	{
+		if (j < 9)
+		{
+			printf("%d ", matriz[i][j]);
+			imprimir(i, ++j, matriz);
+		}
+		else 
+		{
+			printf("\n");
+			imprimir(++i, 0, matriz);
+		}
+	}
+}
+
+void ler_matrizes(int n, int i, int j, int k, int matriz[][9])
+{
+	if (k < n)
+	{
+		if (i < 9)
+		{
+			if (j < 9)
+			{
+				scanf("%d", &matriz[i][j]);
+				ler_matrizes(n, i, ++j, k, matriz);
+			}
+			else 
+			{ 
+				ler_matrizes(n, ++i, 0, k, matriz);
+			}
+		}
+		else
+		{
+			//imprimir(0, 0, matriz);
+			int x = verificando(k, 0, 0, matriz, 0, 0, 0);
+			ler_matrizes(n, 0, 0, ++k, matriz);
+		}
+	}
+}
+
+int main()
+{
+	int n;
+	scanf("%d", &n);
+	int matriz[9][9];
+
+	ler_matrizes(n, 0, 0, 0, matriz);
+
+	return 0;
+}

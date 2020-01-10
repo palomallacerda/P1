@@ -1,0 +1,38 @@
+void jogador(int i, int j, int k, int m, int n, int o, int valores[], int tabuleiro[], int posicao)
+{
+	if (i < n*o)
+	{
+		
+	}
+}
+
+void ler_dado(int i, int n, int o, int valores[])
+{
+	if (i < n*o)
+	{
+		scanf("%d", &valores[i]);
+		ler_dado(++i, n, o, valores);	
+	}
+}
+
+void ler_tabuleiro(int i, int m, int tabuleiro[])
+{
+	if (i < m)
+	{
+		scanf("%d", &tabuleiro[i]);
+		ler_tabuleiro(++i, m, tabuleiro);
+	}
+}
+
+int main()
+{
+	int m,n, o;
+	scanf("%d%d%d", &m, &n, &o);
+	
+	int tabuleiro[m];
+
+	ler_tabuleiro(0, m, tabuleiro);
+	int valores[n*o];
+	ler_dado(0, n, o, valores);
+	return 0;
+}

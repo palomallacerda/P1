@@ -1,39 +1,37 @@
 #include <stdio.h>
 
-int verificando_colunas(int k, int i, int j, int matriz[][9], int qtd_colu, int linha_certa)
+int verificando_colunas(int k, int i, int j, int matriz[][9], int qtd_colu, int coluna_certa)
 {
-	if (i < 9)
+	if (j < 9)
 	{
-		if (j < 9)
-		{
-			if (qtd_coluna == 9)
-			{
-				
-			}
-			verificando(k, i, ++j, matriz, qtd_colu, qtd_linha, linha_certa);
-		}
-		else 
+		if (i < 9)
 		{
 			if (matriz[i][j] == 1 || matriz[i][j] == 2 || matriz[i][j] == 3 || matriz[i][j] == 4 || matriz[i][j] == 5 || matriz[i][j] == 6 || matriz[i][j] == 7 || matriz[i][j] == 8 || matriz[i][j] == 9)
 			{
+				printf("posicao: %d\n", matriz[i][j]);
 				qtd_colu += 1;
 			}
-			if (qtd_linha == 9) linha_certa += 1;
-			verificando(k, ++i, 0, matriz, qtd_colu, 0, linha_certa);
+			verificando_colunas(k, ++i, j, matriz, qtd_colu, coluna_certa);
+		}
+		else
+		{
+			printf("qtd co ====%d\n", qtd_colu);
+		 	if (qtd_colu == 9) coluna_certa += 1;
+		 	  
+			verificando_colunas(k, 0, ++j, matriz, 0, coluna_certa);
 		}
 	}
 	else
 	{
-		if (linha_certa == 9)
+		if (coluna_certa == 9)
 		{
-			verificando_colunas(k, 0, 0, matriz, qtd_colu, 0);
+			printf("S\n");
 		}
 		else 
 		{
 			printf("Instacia %d\n Nao", k);
 			return 1;
-		}
-		
+		}		
 	}
 }
 
@@ -47,12 +45,12 @@ int verificando_linhas(int k, int i, int j, int matriz[][9], int qtd_colu, int q
 			{
 				qtd_linha += 1;
 			}
-			verificando(k, i, ++j, matriz, qtd_colu, qtd_linha, linha_certa);
+			verificando_linhas(k, i, ++j, matriz, qtd_colu, qtd_linha, linha_certa);
 		}
 		else 
 		{
 			if (qtd_linha == 9) linha_certa += 1;
-			verificando(k, ++i, 0, matriz, qtd_colu, 0, linha_certa);
+			verificando_linhas(k, ++i, 0, matriz, qtd_colu, 0, linha_certa);
 		}
 	}
 	else
@@ -106,7 +104,7 @@ void ler_matrizes(int n, int i, int j, int k, int matriz[][9])
 		else
 		{
 			//imprimir(0, 0, matriz);
-			int x = verificando(k, 0, 0, matriz, 0, 0, 0);
+			 verificando_linhas(k, 0, 0, matriz, 0, 0, 0);
 			ler_matrizes(n, 0, 0, ++k, matriz);
 		}
 	}

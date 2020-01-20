@@ -1,0 +1,85 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+
+void imprimri_matriz(int i, int j, int n, char matriz[][n])
+{
+	if (j < n)
+	{
+		if (i < n)
+		{
+			printf("%c", matriz[i][j]);
+			imprimri_matriz(++i, j, n, matriz);
+		}
+		else 
+		{
+			imprimri_matriz(0, ++j, n, matriz);
+		}
+	}
+	else
+	{
+		printf("\n");
+	}
+}
+
+void ler_matriz(int i, int j, int k, char sentence[], int n, char matriz[][n], int tam)
+{
+	if (k < tam)
+	{
+		if (i < n)
+		{
+			if (j < n)
+			{
+				 matriz[i][j] = sentence[k]; /*igualando posição do array com a matriz*/
+				ler_matriz(i, ++j, ++k, sentence, n, matriz, tam);
+			}
+			else
+			{
+				if (j == n)
+				{
+					matriz[i+1][0] = sentence[k];
+				}
+				ler_matriz(++i, 1, ++k, sentence, n, matriz, tam);
+			} 
+		}
+		
+	}
+	else imprimri_matriz(0, 0, n, matriz);
+}	
+
+void ler_frazes(int i, int n, char sentence[])
+{
+	if (i < n)
+	{ 	
+		gets(sentence);	
+		
+		int tam = strlen(sentence); /*tamanho da string*/
+		
+		double n1 = sqrt(tam); /*tamanho da matriz*/
+
+		if (n1 != (int)n1) /* condição de invalidade*/
+		{
+			printf("INVALIDO\n");
+		}
+		else 
+		{ 
+			char matriz[(int)n1][(int)n1];
+			ler_matriz(0, 0,  0, sentence, n1, matriz, tam);
+		}
+
+		ler_frazes(++i, n, sentence);
+	}
+}
+
+int main()
+{
+	int n;
+	char espaco;
+	scanf("%d%c", &n, &espaco);
+		
+	char sentence[100000];
+
+	ler_frazes(0, n, sentence);
+
+	return 0;
+}	

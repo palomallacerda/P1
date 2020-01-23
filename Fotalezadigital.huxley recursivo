@@ -30,7 +30,7 @@ void ler_matriz(int i, int j, int k, char sentence[], int n, char matriz[][n], i
 		{
 			if (j < n)
 			{
-				 matriz[i][j] = sentence[k]; /*igualando posição do array com a matriz*/
+				 matriz[i][j] = sentence[k];
 				ler_matriz(i, ++j, ++k, sentence, n, matriz, tam);
 			}
 			else
@@ -51,13 +51,14 @@ void ler_frazes(int i, int n, char sentence[])
 {
 	if (i < n)
 	{ 	
-		gets(sentence);	
+		fgets(sentence,100000, stdin);		
 		
-		int tam = strlen(sentence); /*tamanho da string*/
-		
-		double n1 = sqrt(tam); /*tamanho da matriz*/
+		int tam = strlen(sentence);
 
-		if (n1 != (int)n1) /* condição de invalidade*/
+		double n1 = sqrt(tam-1);
+
+		
+		if (n1 != (int)n1)
 		{
 			printf("INVALIDO\n");
 		}

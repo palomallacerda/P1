@@ -28,9 +28,9 @@ struct cliente
 	struct endereco local; /*chamando a outra struct*/
 };
 
-void imprimir(struct cliente c1) /*passando como parametro*/
+void imprimir(struct cliente *c1) /*passando como parametro*/
 {
-
+	printf("%d\n", &c1->local.posicao);/*passando como ponteiro*/
 }
 
 void ler_cliente(struct cliente c1)
@@ -45,7 +45,7 @@ int main()
 
 	c1.codigo = 1;
 	printf("%d\n", c1.codigo); /*para imprimir o codigo do cliente*/
-
+	imprimir(&c1);
 
 	fgets(c1.nome, 500, stdin);
 	scanf("%d%d%d", &c1.dia, &c1.mes, &c1.ano); /*pegando o valor */

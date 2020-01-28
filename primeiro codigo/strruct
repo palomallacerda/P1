@@ -1,0 +1,55 @@
+#include <stdio.h>
+
+struct localizacao
+{
+	double latitude;
+	double longitude;	
+};
+
+struct endereco
+{ 	
+/*oq esta dentro da struct não é uma variavel*/
+	char rua[600];
+	char bairro[100];
+	char cidade[100];
+	char estado[100];
+	char cep[100];
+
+	struct localizacao posicao;
+
+};
+struct cliente
+{
+	int codigo;
+	char nome[500];
+	int dia. mes, ano;
+	int sexo;
+
+	struct endereco local; /*chamando a outra struct*/
+};
+
+void imprimir(struct cliente c1) /*passando como parametro*/
+{
+
+}
+
+void ler_cliente(struct cliente c1)
+{
+	scanf("%lf", &c.cliente.local.posicao)
+}
+
+int main()
+{
+	struct cliente c1;
+	/* a variavel é c1*/
+
+	c1.codigo = 1;
+	printf("%d\n", c1.codigo); /*para imprimir o codigo do cliente*/
+
+
+	fgets(c1.nome, 500, stdin);
+	scanf("%d%d%d", &c1.dia, &c1.mes, &c1.ano); /*pegando o valor */
+
+
+	return 0;
+}

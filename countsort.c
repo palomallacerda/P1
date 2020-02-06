@@ -51,7 +51,7 @@ int main()
 	int j = big+1;
 	int *aux = malloc(j*sizeof(int));
 	
-	for (int i = 0; i < big+1; ++i)
+	for (int i = 0; i < j; ++i)
 		aux[i] = 0;
 	
 	for (int i = 0; i < k; ++i)

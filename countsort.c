@@ -8,9 +8,8 @@ void print_array(int i, int array[], int k)
 		if (array[i] > 0)	
 		{
 			for (int j = 0; j < array[i]; ++j)
-			{
 				printf("%d\n", i);
-			}
+			
 		}
 		print_array(++i, array, k);
 	}
@@ -56,9 +55,7 @@ int main()
 		aux[i] = 0;
 	
 	for (int i = 0; i < k; ++i)
-	{
-		aux[array[i]] += 1;
-	}		
+		aux[array[i]] += 1;	
 
 	print_array(0, aux, big+1);
 	return 0;

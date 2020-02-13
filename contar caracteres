@@ -1,0 +1,102 @@
+#include <stdio.h>
+#include <string.h>
+
+void contar_par(int i, int j, char fraze[], int tam, int qtd)
+{	
+	char par[2], parfixo[2]; int qtd_atual = 0,  repetido = 0;
+	if (j < tam)
+	{
+		if (fraze[i] >= 97 && fraze[i] <= 122 && fraze[j] >= 97 && fraze[j] <= 122)
+		{
+			par[0] = fraze[i];
+			par[1] = fraze[j];
+			for (int k = 0; k < tam; ++k)
+			{
+				if (i != k && j != k)
+				{
+					printf("i: %d j: %d\n", i, j);
+					if (par[0] == fraze[i] && par[1] == fraze[j])
+					{
+						repetido++;
+					}
+				}
+			}
+
+			if (repetido != 0)
+			{
+				if (repetido > qtd)
+				{
+					parfixo[0] = par[0];
+					parfixo[1] = par[1];
+
+					qtd = repetido+1;			
+				}
+			}	
+		}
+
+		contar_par(++i, ++j, fraze, tam, qtd);
+	}
+	else
+	{
+		if (qtd == 0)
+		{
+			printf("NENHUM PAR\n");
+		}
+		else printf("qtd par %d\n", qtd);
+	}
+}
+
+void contar_letraA(int i, char fraze[], int tam, int qtd)
+{
+	if (i < tam)
+	{
+		if (fraze[i] == 'a' || fraze[i] == 'A')
+		{
+			qtd++;
+		}
+
+		contar_letraA(++i, fraze, tam, qtd);
+	}
+	else printf("letra a %d\n", qtd);
+}
+
+void contar_espacos(int i, char fraze[], int tam, int qtd)
+{
+	if (i < tam)
+	{
+		if (fraze[i] == ' ')
+		{
+			qtd++;
+		}
+
+		contar_espacos(++i, fraze, tam, qtd);
+	}
+	else printf("espaços %d\n", qtd);
+}
+
+void ler_fraze(int i, char fraze[])
+{		
+	scanf("%[^\n]", fraze);
+	getchar();
+
+	int tam = strlen(fraze);
+
+	if (strcmp(fraze, "NAO QUERO MAIS") != 0)
+	{
+		
+		/*contar_espacos(0, fraze, tam, 0);	
+		contar_letraA(0, fraze, tam, 0);*/
+
+		contar_par(0, 1, fraze, tam, 0);
+		ler_fraze(++i, fraze);
+	}
+}
+
+int main()
+{
+	char fraze[100];
+
+	ler_fraze(0, fraze);
+
+	return 0;
+}

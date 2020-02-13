@@ -1,102 +1,128 @@
 #include <stdio.h>
 #include <string.h>
 
-void contar_par(int i, int j, char fraze[], int tam, int qtd)
-{	
-	char par[2], parfixo[2]; int qtd_atual = 0,  repetido = 0;
-	if (j < tam)
-	{
-		if (fraze[i] >= 97 && fraze[i] <= 122 && fraze[j] >= 97 && fraze[j] <= 122)
-		{
-			par[0] = fraze[i];
-			par[1] = fraze[j];
-			for (int k = 0; k < tam; ++k)
-			{
-				if (i != k && j != k)
-				{
-					printf("i: %d j: %d\n", i, j);
-					if (par[0] == fraze[i] && par[1] == fraze[j])
-					{
-						repetido++;
-					}
-				}
-			}
+int contar_pares(char array[], char qtd[], int tam, char comum[])
+{
+    int i = 0, par = 0, biggerpar = 0, k = 0;
+   
+    while(i < tam)
+    {
+        if(((array[i] >= 65 && array[i] <= 90) || array[i] >= 97 && array[i] <= 122) && ((array[i+1] >= 65 && array[i+1] <= 90) || array[i+1] >= 97 && array[i+1] <= 122)) 
+        {
+            comum[k]=array[i]; comum[k+1] = array[i+1]; k+=2; 
+        }
+        i++;
+    }
+    
+    for(i = 0; i < k; i+=2)
+    {
+        if(comum[i] && comum[i+1]) par++;
+        for(int j = i+2; j < k; j+=2)
+          if(comum[i] == comum[j] && comum[i+1] == comum[j+1]) par++;
+        
+        if(par > biggerpar)
+        {
+            biggerpar = par;
+            qtd[0] = comum[i];
+            qtd[1] = comum[i+1];
+        }
 
-			if (repetido != 0)
-			{
-				if (repetido > qtd)
-				{
-					parfixo[0] = par[0];
-					parfixo[1] = par[1];
-
-					qtd = repetido+1;			
-				}
-			}	
-		}
-
-		contar_par(++i, ++j, fraze, tam, qtd);
-	}
-	else
-	{
-		if (qtd == 0)
-		{
-			printf("NENHUM PAR\n");
-		}
-		else printf("qtd par %d\n", qtd);
-	}
+        par = 0;
+    }
+    return biggerpar;
 }
+
+
 
 void contar_letraA(int i, char fraze[], int tam, int qtd)
 {
-	if (i < tam)
-	{
-		if (fraze[i] == 'a' || fraze[i] == 'A')
-		{
-			qtd++;
-		}
+    if (i < tam)
+    {
+        if (fraze[i] == 'a' || fraze[i] == 'A')
+        {
+            qtd++;
+        }
 
-		contar_letraA(++i, fraze, tam, qtd);
-	}
-	else printf("letra a %d\n", qtd);
+        contar_letraA(++i, fraze, tam, qtd);
+    }
+    else printf("%d\n", qtd);
 }
 
 void contar_espacos(int i, char fraze[], int tam, int qtd)
 {
-	if (i < tam)
-	{
-		if (fraze[i] == ' ')
-		{
-			qtd++;
-		}
+    if (i < tam)
+    {
+        if (fraze[i] == ' ')
+        {
+            qtd++;
+        }
 
-		contar_espacos(++i, fraze, tam, qtd);
-	}
-	else printf("espaços %d\n", qtd);
+        contar_espacos(++i, fraze, tam, qtd);
+    }
+    else printf("%d\n", qtd);
 }
 
-void ler_fraze(int i, char fraze[])
-{		
-	scanf("%[^\n]", fraze);
-	getchar();
 
-	int tam = strlen(fraze);
+int tamanho(char fraze[], int tam)
+{
+    while(fraze[tam] != ' ')
+    {
+        tam++;
+    }
 
-	if (strcmp(fraze, "NAO QUERO MAIS") != 0)
-	{
-		
-		/*contar_espacos(0, fraze, tam, 0);	
-		contar_letraA(0, fraze, tam, 0);*/
+    return tam;
+}
 
-		contar_par(0, 1, fraze, tam, 0);
-		ler_fraze(++i, fraze);
-	}
+void change(char fraze[])
+{
+    int i, tam = strlen(fraze);
+    for (int i = 0; i < tam; ++i)
+    {
+        if (fraze[i] >= 65 && fraze[i] <= 90)
+        {
+            fraze[i] += 32;
+        }
+    }
+}
+
+
+void ler_fraze(int i, char fraze[], char times[])
+{       
+    scanf("%[^\n]", fraze);
+    getchar();
+
+    int tam = strlen(fraze);
+    
+    int par; 
+    char comum[500];
+    
+    if (strcmp(fraze, "NAO QUERO MAIS") != 0)
+    {
+        
+        change(fraze);
+
+        contar_espacos(0, fraze, tam, 0); 
+        
+        contar_letraA(0, fraze, tam, 0);
+        
+        par = contar_pares(fraze, times, tam, comum);
+        if(par)
+        {
+            printf("%d\n", par);
+            printf("%c%c\n", times[0], times[1]);
+        }
+        else printf("NENHUM PAR\n");
+
+
+        ler_fraze(++i, fraze, times);
+    }
 }
 
 int main()
 {
-	char fraze[100];
+    char fraze[100]; char times[400];
 
-	ler_fraze(0, fraze);
+    ler_fraze(0, fraze, times);
 
-	return 0;
+    return 0;
 }

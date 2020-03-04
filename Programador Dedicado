@@ -1,0 +1,83 @@
+#include<stdio.h>
+
+void receber(int i, int j, int k, int programa, int linhas, int dia, int maior, int maiorl)
+{
+	if (i == 7)
+	{
+		printf("QUANTIDADE DE DIAS QUE ATINGIU MEDIA DE PROGRAMAS: %d\n", j);
+		printf("QUANTIDADE DE DIAS QUE ATINGIU MEDIA DE LINHAS: %d\n", k);
+		if (dia == 0)
+		{
+			printf("DIA QUE MAIS PRODUZIU: DOMINGO\n");
+		}
+		else if (dia == 1)
+		{
+			printf("DIA QUE MAIS PRODUZIU: SEGUNDA\n");
+		}
+		else if (dia == 2)
+		{
+			printf("DIA QUE MAIS PRODUZIU: TERCA\n");
+		}
+		else if (dia == 3)
+		{
+			printf("DIA QUE MAIS PRODUZIU: QUARTA\n");
+		}
+		else if (dia == 4)
+		{
+			printf("DIA QUE MAIS PRODUZIU: QUINTA\n");
+		}
+		else if (dia == 5)
+		{
+			printf("DIA QUE MAIS PRODUZIU: SEXTA\n");
+		}
+		else if (dia == 6)
+		{
+			printf("DIA QUE MAIS PRODUZIU: SABADO\n");
+		}
+
+		return;
+	}
+	else 
+	{
+		int programa, linhas;
+
+
+		scanf("%d\n %d", &programa, &linhas);
+		
+		if (programa >= 5 && linhas >= 100) /*cumpriu a meta diaria*/
+		{
+			j++;
+			k++;
+		}
+		else if (programa >= 5 && linhas < 100)
+		{
+			j++;
+		}
+		else if (programa < 5 && linhas >= 100)
+		{
+			k++;
+		}
+		//printf("I = %d\n", i);
+		if (programa >= maior && linhas >= maiorl)
+		{
+			
+			maior = programa;
+			maiorl = linhas;
+			dia = i;
+		
+		}
+		receber(i = i + 1, j, k, programa, linhas, dia, maior, maiorl);
+
+	}
+}
+
+int main()
+{
+	int i = 0;
+	int j = 0;
+	int k = 0;
+	int programa = 0;
+	int linhas = 0;
+	receber(i, j, k, programa, linhas, 0, 0, 0);
+	return 0;
+}

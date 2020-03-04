@@ -1,0 +1,34 @@
+#include <stdio.h>
+
+void ler(double soma_credito, double soma_debito)
+{
+	int n;
+	double credito, debito;
+	scanf("%d", &n);
+	if (n != -1)
+	{
+		if (n == 0)
+		{
+			scanf("%lf", &debito);
+			soma_debito += debito;
+		}
+		else if (n == 1)
+		{
+			scanf("%lf", &credito);
+			soma_credito += credito;
+		}
+		ler(soma_credito, soma_debito);
+	}
+	else
+	{
+		printf("Creditos: R$ %.2lf\n", soma_credito);
+		printf("Debitos: R$ %.2lf\n", soma_debito);
+		printf("Saldo: R$ %.2lf\n", soma_credito-soma_debito);
+	}
+}
+
+int main()
+{
+	ler(0.0, 0.0);
+	return 0;
+}

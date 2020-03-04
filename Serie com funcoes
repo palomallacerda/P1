@@ -1,0 +1,77 @@
+ #include <stdio.h>
+
+int fatorial(int i, int fat, int termos) {
+  if (i <= termos)
+    {
+        if (i == 1)
+        {
+            fat = 1;
+        }
+        else
+        {
+            fat = i*fat;
+        }
+    	
+    	return fatorial(i+1, fat, termos);
+   
+  } 
+  else
+  	{
+   		 return fat;
+	}
+  
+}
+
+int eh_primo(int numero)
+{
+        int rest1 = numero%2;
+        int rest2 = numero%3;
+       
+        if (numero == 2 || numero == 3)
+        {
+            return numero;
+        }
+        else if (rest1 != 0 && rest2 != 0) /*� primo */
+        {
+            return numero;
+        }
+        else if (rest1 == 0 || rest2 == 0)
+        {
+            numero++;
+        }        
+       
+       return eh_primo(numero);
+ 
+}
+ 
+
+void calc_serie(int i, int termos,  double soma ) {
+    
+	double primo = eh_primo(i);
+  if( i > termos)
+  { 
+ 	printf("\n%.2lf\n", soma);
+    return;
+  }
+  else 
+  {
+  	 soma += fatorial(1, 1, i)/primo;
+  	if (i != 1)
+  	{
+   	 printf(" + ");
+  	}
+  
+    printf("%d!/%0.lf", i, primo);
+  } 
+  calc_serie(i+1, termos, soma);
+}
+
+
+int main() {
+  int termos;
+  scanf("%d", &termos);
+  
+  fatorial(1, 0, termos);
+  calc_serie(1, termos, 0);
+  return 0;
+}

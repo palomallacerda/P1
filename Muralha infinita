@@ -1,0 +1,64 @@
+#include <stdio.h>
+
+
+void receber(int dias, int i, int x, int y, int moedas, int reino)
+{	
+	if (dias ==	 i)
+	{	
+		printf("%d\n", moedas);
+		return;
+	}
+	else
+	{
+		if (x < y)/*REINO1*/
+		{
+			reino = 1;
+		}
+		else if (x > y) /*REINO2*/
+		{
+			reino = 2;
+		}
+
+		char pontos;
+		scanf(" %c", &pontos);
+		
+		if(x == y) /*MURALHA*/
+		{
+			if (reino == 1)
+			{
+				 if (pontos == 'D')/*reino2*/
+				 {
+				 	moedas++;
+				 }
+			}
+			else if (reino == 2)
+			{
+				if (pontos == 'C')/*reino1*/
+				{
+					moedas++;
+				}
+			}
+
+		} 
+		
+		if (pontos =='D')
+		{
+			x++;
+		}
+		else if(pontos == 'C')
+		{
+			y++;
+		}
+		
+
+		receber(dias, i=i+1, x, y, moedas, reino);
+	}
+}	
+
+int main()
+{
+	int dias, i = 0;
+	scanf("%d ", &dias);
+	receber(dias,i, 0, 0, 0, 0);
+	return 0;
+}

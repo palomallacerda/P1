@@ -1,0 +1,27 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+int mdc(int number, int number2)
+{
+	int rest1 = number%number2; //48/30 = 18
+	if (rest1 != 0)
+	{
+		mdc(number2, rest1);
+	}
+	else if (rest1 == 0)
+	{
+		printf("%d\n", number2);
+	}
+ }
+
+
+
+int main(void)
+{
+	int number, number2;
+	scanf("%d\n %d", &number, &number2);
+	mdc(number, number2);
+	return 0;
+}

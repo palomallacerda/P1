@@ -1,0 +1,143 @@
+#include <stdio.h>
+
+void imprimir_array(int i, int n, int diferenca[])
+{
+	if (i < n)
+	{
+		printf("%d\n", diferenca[i]);
+		imprimir_array(++i, n, diferenca);
+	}
+}
+
+void bouble(int i, int n, int diferenca[])
+{
+	if (i < n-1)
+	{
+		if (diferenca[i] > diferenca[i+1])
+		{
+			int aux = diferenca[i+1];
+			diferenca[i+1] = diferenca[i];
+			diferenca[i] = aux;
+
+		}
+
+		bouble(++i, n, diferenca);
+	}
+}
+
+void sort(int i, int n, int diferenca[])
+{
+	if (i < n)
+	{
+		bouble(0, n, diferenca);
+		sort(++i, n, diferenca);
+	}
+}
+
+void contabilizar(int i, int j, int n, int matriz[][2], int diferenca[], int compra_gols)
+{	
+	if (i < n)
+	{
+		if (j < 2)
+		{
+			if (j == 0)
+			{
+				diferenca[i] = matriz[i][j] -= matriz[i][j+1];
+				
+			}
+		
+			contabilizar(i, ++j, n, matriz, diferenca, compra_gols);
+		}
+		else contabilizar(++i, 0, n, matriz, diferenca, compra_gols);		
+	}
+}
+
+void ler_matriz(int i, int j, int n, int matriz[][2])
+{
+	if (i < n)
+	{
+		if (j < 2)
+		{
+			scanf("%d", &matriz[i][j]);
+			ler_matriz(i, ++j, n, matriz);
+		}
+		else ler_matriz(++i, 0, n, matriz);
+	}
+}
+
+void cheack(int i, int n, int diferenca[], int ganhar, int empate, int pontos)
+{
+	if (i < n)
+	{
+		if (diferenca[i] > 0)
+		{
+			pontos += ganhar;
+		}
+		else if (diferenca[i] == 0)
+		{	
+			pontos += empate;
+		} 
+
+		cheack(++i, n, diferenca, ganhar, empate, pontos);
+	}
+	else printf("%d\n", pontos);
+}
+
+void contar(int i, int n, int diferenca[i], int *compras_gols)
+{
+	if (diferenca[i] <= 0 && *compras_gols > 0)
+	{
+		diferenca[i] += 1;
+		*compras_gols = *compras_gols - 1;
+		contar(i, n, diferenca, compras_gols);
+	}
+}
+
+void contabilizar_gols(int i, int n, int diferenca[], int ganhar, int empate, int pontos, int compras_gols)
+{
+	if (i >= 0)
+	{
+		//printf("I: %d\n", i);
+		//printf("valor %d\n",diferenca[i]);
+		if (compras_gols >= 1)
+		{
+			if (diferenca[i] >= 0)
+			{
+				diferenca[i] += 1;
+				--compras_gols; 
+			} 
+			else if (diferenca[i] < 0)
+			{
+				//printf("%d\n", diferenca[i]);
+				diferenca[i] += 1;
+				--compras_gols;		
+				contar(i, n, diferenca, &compras_gols);
+			}
+		}
+
+		contabilizar_gols(--i, n, diferenca, ganhar, empate, pontos, compras_gols);		
+	}
+	else 
+	{
+		//imprimir_array(0, n, diferenca);
+		cheack(0, n, diferenca, ganhar, empate, pontos);
+	}
+}
+int main()
+{
+	int partidas, compras_gols;
+	scanf("%d%d", &partidas, &compras_gols);
+
+	int ganhar = 3, empate = 1;
+	int matriz[partidas][2];
+	int diferenca[partidas];
+	ler_matriz(0, 0, partidas, matriz);
+
+	contabilizar(0, 0, partidas, matriz, diferenca, compras_gols);
+	
+	sort(0, partidas, diferenca);
+	
+	contabilizar_gols(partidas-1, partidas, diferenca, ganhar, empate, 0, compras_gols);
+
+	return 0;
+}

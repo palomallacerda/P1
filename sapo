@@ -1,38 +1,84 @@
-void jogador(int i, int j, int k, int m, int n, int o, int valores[], int tabuleiro[], int posicao)
+#include <stdio.h>
+
+void imprimir(int i, int jogadores[], int n)
 {
-	if (i < n*o)
-	{
-		
-	}
+  if (i < n)
+  {
+    printf("%d\n", jogadores[i]);
+    imprimir(++i, jogadores, n);
+  }
 }
 
-void ler_dado(int i, int n, int o, int valores[])
+int divi(int posicao_final, int m)
 {
-	if (i < n*o)
-	{
-		scanf("%d", &valores[i]);
-		ler_dado(++i, n, o, valores);	
-	}
+    if (posicao_final % m < m)
+    {
+        int after = posicao_final % m;
+        return after;
+    }
+    else
+    {
+        divi(posicao_final % m, m);
+    }
 }
 
-void ler_tabuleiro(int i, int m, int tabuleiro[])
+void partida(int i, int j, int tabuleiro[], int jogadores[], int n, int m, int o)
 {
-	if (i < m)
-	{
-		scanf("%d", &tabuleiro[i]);
-		ler_tabuleiro(++i, m, tabuleiro);
-	}
+  if (i < o)
+  {
+    if (j == n)
+    {
+      i++;
+      j = 0;  
+    }
+
+    else
+    {
+      int dado;
+      scanf("%d", &dado);
+      int posicao_final = (jogadores[j] + dado) % m;
+
+      int certo = tabuleiro[posicao_final];
+      if (certo >= 0)
+      {
+        jogadores[j] = (posicao_final + tabuleiro[posicao_final]) % m;
+        j++;
+      }
+
+      else if (certo < 0)
+      {
+        int after = (posicao_final + tabuleiro[posicao_final]) + m;
+        int place = divi(after, m);
+        jogadores[j] = place;
+        j++;  
+      }
+
+    }
+      partida(i, j, tabuleiro, jogadores, n, m, o);
+  }
+}
+
+void ler_jogadores(int i, int tabuleiro[], int m)
+{
+  if (i < m)
+  {
+    scanf("%d", &tabuleiro[i]);
+    ler_jogadores(++i, tabuleiro, m);
+  }
 }
 
 int main()
 {
-	int m,n, o;
-	scanf("%d%d%d", &m, &n, &o);
-	
-	int tabuleiro[m];
+  int m, n, o;
 
-	ler_tabuleiro(0, m, tabuleiro);
-	int valores[n*o];
-	ler_dado(0, n, o, valores);
-	return 0;
+  scanf("%d%d%d", &m, &n, &o);
+
+  int tabuleiro[m], jogadores[32000] = {0};
+
+  ler_jogadores(0, tabuleiro, m);
+
+  partida(0, 0, tabuleiro, jogadores, n, m, o);
+  
+  imprimir(0, jogadores, n);
+   return 0;
 }

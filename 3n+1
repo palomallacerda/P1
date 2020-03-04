@@ -4,7 +4,7 @@ int qtd_n(int i, int n)
 {
 	if (n == 1)
 	{
-		return i;  
+		return i;  	
 	}
 	else
 	{
@@ -22,14 +22,60 @@ int qtd_n(int i, int n)
 			//printf("3n+1 %d\n", n);
 			i++;
 		}
-		ler(i, n);		
+		return qtd_n(i, n);		
+	}
+}
+
+
+int  intervalo(int i, int inicio, int final, int quantidade, int maior_qtd, int j)
+{
+
+	if (i > final)
+	{
+		if (j == 0)
+		{
+			
+			printf("%d %d %d\n", inicio, final, maior_qtd);
+		}
+		else
+		{
+			printf("%d %d %d\n", final, inicio, maior_qtd);
+		}
+	}
+	else
+	{
+		quantidade = qtd_n(1, i);
+		if (quantidade > maior_qtd)
+		{	
+			maior_qtd = quantidade;
+		}
+		intervalo(i+1, inicio, final, quantidade, maior_qtd, j);
+
+	}
+}
+
+
+void ler() {
+	
+	int inicio, final;
+	int j = 0;
+	if (scanf("%d %d", &inicio, &final) != EOF) 
+	{
+		int aux;
+		if (inicio > final)
+		{
+			aux = final;
+			final = inicio;
+			inicio = aux;
+			j++;
+		}
+		intervalo(inicio, inicio, final, 0, 0, j);	
+		ler();
 	}
 }
 
 int main()
 {
-	int inicio, final;
-	scanf("%d %d", &inicio, &final);
-	qtd_n(0, inicio);
+	ler();
 	return 0;
 }

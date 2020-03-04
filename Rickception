@@ -1,0 +1,49 @@
+#include <stdio.h>
+
+int resolucao(int inicial, int limite, int i)
+{
+	if (limite == i)
+	{
+		printf("%d\n", inicial);
+	}
+	
+	else
+	{
+		i++;
+		
+		int soma = inicial + 3;
+		
+		if (i == limite )
+		{
+			printf("%d\n", soma);
+		}
+		
+		else
+		{ 
+			i++;
+			
+			int resto5 = (soma%5)+soma;
+			
+			if (i == resto5)
+			{
+				printf("%d\n", resto5);
+			}
+			else
+			{
+				resolucao(resto5, limite, i);
+			}
+
+		 }
+	}
+}
+
+int main ()
+{
+	int inicial, limite;
+	
+	scanf("%d%d", &inicial, &limite);
+
+	resolucao(inicial, limite, 0);
+
+	return 0;
+}
